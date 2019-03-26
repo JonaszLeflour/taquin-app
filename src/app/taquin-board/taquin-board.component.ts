@@ -66,9 +66,15 @@ export class TaquinBoardComponent implements OnInit {
     return true;
   }
 
+  moveTile(tile1: number, tile2: number):boolean{
+    let posT1 = this.getTilePos(tile1);
+    let posT2 = this.getTilePos(tile2);
+    return this._moveTile(posT1[0],posT1[1], posT2[0], posT2[1]);
+  }
+
   //return true if the tile is moved
   //tile can move to 0 if next to 0
-  moveTile(x_from :number, y_from:number, x_to:number, y_to:number) : boolean{
+  _moveTile(x_from :number, y_from:number, x_to:number, y_to:number) : boolean{
     if(!this.canTileMoveTo(x_from, y_from, x_to,y_to)){
       return false;
     }
@@ -85,6 +91,31 @@ export class TaquinBoardComponent implements OnInit {
     }
     return true;
   }
+
+  //drag and drop
+  drag(event) {
+    console.log("drag : " + event.target.id);
+    event.dataTransfer.setData("tile", event.target.id);
+  }
+
+  allowDrop(event) {
+    event.preventDefault();
+  }
+
+  drop(event) {
+    console.log("drop : " + event.target.className);
+    event.preventDefault();
+    let tileDragged = parseInt(event.dataTransfer.getData("tile"));
+    let tileDroppedOn = parseInt(event.target.id);
+    if(!this.moveTile(tileDragged, tileDroppedOn)){
+      this.showCouldNotMoveDialog();
+    };
+  }
+
+  showCouldNotMoveDialog(){
+
+  }
+
 
   ngOnInit() {
   }
