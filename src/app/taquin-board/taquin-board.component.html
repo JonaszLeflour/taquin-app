@@ -1,6 +1,8 @@
 <mat-grid-list cols="{{rowLength()}}" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let tile of boardTiles" [ngClass]="{'tile': true, 'empty-tile': tile==emptyTile}" >
-      <span *ngIf="tile != emptyTile" class="tile-number">{{tile}}</span>
+    <mat-grid-tile *ngFor="let tile of boardTiles" 
+      [ngClass]="{'tile': true, 'movable-tile': canTileBeMoved(tile), 'empty-tile': tile==emptyTile}"
+      draggable="{{canTileBeMoved(tile)}}" >
+      <span *ngIf="tile != emptyTile" class="tile-number">{{tile}} {{getTilePos(tile)}} {{canTileBeMoved(tile)}} </span>
     </mat-grid-tile>
 </mat-grid-list>
 

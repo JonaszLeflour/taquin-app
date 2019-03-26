@@ -33,17 +33,34 @@ export class TaquinBoardComponent implements OnInit {
   }
 
   //array start at 0
-  getTile(x:number, y:number){
+  getTile(x:number, y:number):number{
     return this.boardTiles[x + y*this.rowLength()];
+  }
+
+  getTilePos(tile:number):number[]{
+    let index = this.boardTiles.indexOf(tile);
+    let y = Math.floor(index / this.boardRowLength);
+    let x = index % this.boardRowLength;
+    return [x, y];
   }
 
   setTile(x:number, y:number, val:number){
     this.boardTiles[x + y*this.rowLength()] = val;
   }
 
-  canMove(x_from :number, y_from:number, x_to:number, y_to:number) : boolean{
+  canTileBeMoved(tile:number){
+    let tilePos = this.getTilePos(tile);
+    return this._canTileBeMoved(tilePos[0], tilePos[1]);
+  }
+
+  _canTileBeMoved(x:number,y:number): boolean {
+    let emptyTilePos = this.getTilePos(this.emptyTile);
+    return ((Math.abs(x - emptyTilePos[0]) + Math.abs(y - emptyTilePos[1])) == 1);
+  }
+
+  canTileMoveTo(x_from :number, y_from:number, x_to:number, y_to:number) : boolean{
     if(this.getTile(x_to, y_to) != this.emptyTile 
-        || (Math.abs(x_from - x_to) + Math.abs(y_from - y_to) != 1) ) {
+        ||  (Math.abs(x_from - x_to) + Math.abs(y_from - y_to) != 1)) {
       return false
     }
     return true;
@@ -52,7 +69,7 @@ export class TaquinBoardComponent implements OnInit {
   //return true if the tile is moved
   //tile can move to 0 if next to 0
   moveTile(x_from :number, y_from:number, x_to:number, y_to:number) : boolean{
-    if(!this.canMove(x_from, y_from, x_to,y_to)){
+    if(!this.canTileMoveTo(x_from, y_from, x_to,y_to)){
       return false;
     }
     this.setTile(x_to, y_to, this.getTile(x_from, y_from));
