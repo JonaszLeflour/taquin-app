@@ -40,6 +40,9 @@ export class TaquinBoardComponent implements OnInit {
         this.boardTiles[i] = this.boardTiles[j];
         this.boardTiles[j] = x;
     }
+    if(!this.isSolvable()){
+      this.suffleTiles();
+    }
   }
 
   //array start at 0
@@ -118,9 +121,39 @@ export class TaquinBoardComponent implements OnInit {
     this.moveTile(tileDragged, tileDroppedOn);
   }
 
-  showCouldNotMoveDialog(){
+  public isSolvable() : boolean{
+    let parity = 0;
+    let gridWidth = Math.floor(Math.sqrt(this.boardTiles.length));
+    let row = 0; // the current row we are on
+    let blankRow = 0; // the row with the blank tile
 
-  }
+    for (let i = 0; i < this.boardTiles.length; i++)
+    {
+        if (i % gridWidth == 0) { // advance to next row
+            row++;
+        }
+        if (this.boardTiles[i] == 0) { // the blank tile
+            blankRow = row; // save the row on which encountered
+            continue;
+        }
+        for (let j = i + 1; j < this.boardTiles.length; j++)
+        {
+            if ((this.boardTiles[i] > this.boardTiles[j]) && (this.boardTiles[j] != 0))
+            {
+                parity++;
+            }
+        }
+    }
+    if (gridWidth % 2 == 0) { // even grid
+        if (blankRow % 2 == 0) { // blank on odd row; counting from bottom
+            return (parity % 2) == 0;
+        } else { // blank on even row; counting from bottom
+            return (parity % 2) != 0;
+        }
+    } else { // odd grid
+        return (parity % 2) == 0;
+    }
+}
 
 
   ngOnInit() {
