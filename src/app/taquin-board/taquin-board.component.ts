@@ -32,6 +32,16 @@ export class TaquinBoardComponent implements OnInit {
     return this.boardColLength;
   }
 
+  suffleTiles(){
+    var j, x, i;
+    for (i = this.boardTiles.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = this.boardTiles[i];
+        this.boardTiles[i] = this.boardTiles[j];
+        this.boardTiles[j] = x;
+    }
+  }
+
   //array start at 0
   getTile(x:number, y:number):number{
     return this.boardTiles[x + y*this.rowLength()];
@@ -105,9 +115,7 @@ export class TaquinBoardComponent implements OnInit {
     event.preventDefault();
     let tileDragged = parseInt(event.dataTransfer.getData("tile"));
     let tileDroppedOn = parseInt(event.currentTarget.id);
-    if(!this.moveTile(tileDragged, tileDroppedOn)){
-      this.showCouldNotMoveDialog();
-    };
+    this.moveTile(tileDragged, tileDroppedOn);
   }
 
   showCouldNotMoveDialog(){

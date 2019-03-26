@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { TaquinBoardComponent } from './taquin-board/taquin-board.component';
 import { MatGridListModule } from '@angular/material';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   imports: [
     BrowserModule,
     MatGridListModule,
-    DragDropModule
+    DragDropModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
