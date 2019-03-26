@@ -94,7 +94,6 @@ export class TaquinBoardComponent implements OnInit {
 
   //drag and drop
   drag(event) {
-    console.log("drag : " + event.target.id);
     event.dataTransfer.setData("tile", event.target.id);
   }
 
@@ -103,10 +102,9 @@ export class TaquinBoardComponent implements OnInit {
   }
 
   drop(event) {
-    console.log("drop : " + event.target.className);
     event.preventDefault();
     let tileDragged = parseInt(event.dataTransfer.getData("tile"));
-    let tileDroppedOn = parseInt(event.target.id);
+    let tileDroppedOn = parseInt(event.currentTarget.id);
     if(!this.moveTile(tileDragged, tileDroppedOn)){
       this.showCouldNotMoveDialog();
     };

@@ -6,7 +6,7 @@
       (dragover)="allowDrop($event)"
       (drop)="drop($event)"
       id="{{tile}}">
-      <span *ngIf="tile != emptyTile" class="tile-number">{{tile}} {{getTilePos(tile)}} {{canTileBeMoved(tile)}} </span>
+      <span *ngIf="tile != emptyTile" class="tile-number">{{tile}}</span>
     </mat-grid-tile>
 </mat-grid-list>
 
