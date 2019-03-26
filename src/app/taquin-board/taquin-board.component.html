@@ -1,0 +1,15 @@
+<mat-grid-list cols="{{rowLength()}}" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let tile of boardTiles" [ngClass]="{'tile': true, 'empty-tile': tile==emptyTile}" >
+      <span *ngIf="tile != emptyTile" class="tile-number">{{tile}}</span>
+    </mat-grid-tile>
+</mat-grid-list>
+
+
+
+
+<ng-template [ngIf]="!isGameWon()">
+    <div class="in-progress-message">Solve the puzzle !</div>
+  </ng-template>
+<ng-template [ngIf]="isGameWon()">
+  <div class="win-message">You won</div>
+</ng-template>
