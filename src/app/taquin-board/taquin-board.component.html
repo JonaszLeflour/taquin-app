@@ -1,19 +1,19 @@
-<mat-grid-list cols="{{rowLength()}}" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let tile of boardTiles" 
-      [ngClass]="{'tile': true, 'movable-tile': canTileBeMoved(tile), 'empty-tile': tile==emptyTile}"
-      draggable="{{canTileBeMoved(tile)}}" 
-      (dragstart)="drag($event)"
-      (dragover)="allowDrop($event)"
-      (drop)="drop($event)"
-      id="{{tile}}">
-      <span *ngIf="tile != emptyTile" class="tile-number">{{tile}}</span>
-    </mat-grid-tile>
-</mat-grid-list>
-
-<ng-template [ngIf]="!isGameWon()">
-    <div class="in-progress-message">Solve the puzzle !</div>
+<div class = container>
+  <mat-grid-list cols="{{rowLength()}}" rowHeight="2:1">
+      <mat-grid-tile *ngFor="let tile of boardTiles" 
+        [ngClass]="{'tile': true, 'movable-tile': canTileBeMoved(tile), 'empty-tile': tile==emptyTile}"
+        draggable="{{canTileBeMoved(tile)}}" 
+        (dragstart)="drag($event)"
+        (dragover)="allowDrop($event)"
+        (drop)="drop($event)"
+        id="{{tile}}">
+        <span *ngIf="tile != emptyTile" class="tile-number">{{tile}}</span>
+      </mat-grid-tile>
+  </mat-grid-list>
+  <ng-template [ngIf]="!isGameWon()">
+      <h2 class="in-progress-message">Solve the puzzle !</h2>
+    </ng-template>
+  <ng-template [ngIf]="isGameWon()">
+    <button mat-raised-button color="primary" (click)="suffleTiles()">You won ! New Game</button>
   </ng-template>
-<ng-template [ngIf]="isGameWon()">
-  <div class="win-message">You won</div>
-  <button mat-raised-button color="primary" (click)="suffleTiles()" >New Game</button>
-</ng-template>
+</div>

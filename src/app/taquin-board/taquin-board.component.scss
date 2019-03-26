@@ -1,5 +1,6 @@
 .tile{
     background:lightblue;
+    font-size: 36px;
 }
 
 .movable-tile{
@@ -8,5 +9,17 @@
 }
 
 .empty-tile{
-    background:grey;
+    background:#333333;
+}
+
+h2 {
+    color:white;
+}
+
+.container {
+    max-height : 1000px !important;
+}
+
+button{
+    margin-top:10px;
 }
